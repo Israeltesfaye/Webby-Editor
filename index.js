@@ -17,11 +17,13 @@ async function connect(){
 await mongoose.connect(process.env.MONGO_URL).then(console.log("db connected"))
 }
 
-connect().then(()=>{
+try{connect().then(()=>{
 
 app.use("/projects",projects)
 app.use("/api/user",userRoute)
-})
+})}catch(err){
+console.log(err)
+}
 
 
 

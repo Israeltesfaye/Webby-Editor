@@ -5,14 +5,14 @@ var ProjectSchema = new mongoose.Schema({
 	  type:String,
 	  min:6,
 	  max:12},
-	  type:{
-	  type:String},
 	  author:{
            type:mongoose.Schema.ObjectId,
            ref:"User"
 	  },
-	  files:[mongoose.Schema.ObjectId]
-});
+	  html:{type:Buffer},
+	css:{type:Buffer},
+	script:{type:Buffer}
+	  });
 
 model=mongoose.model('Project', ProjectSchema);
 

@@ -12,12 +12,7 @@ const UserSchema = new mongoose.Schema({
 	  password:{
 	  type:String,
 	  min:8,
-	  max:100},
-	  projects:{
-       type:[mongoose.Schema.ObjectId],
-      ref:"Project",
-      default:[]
-	  }})
+	  max:100},})
 model=mongoose.model('User', UserSchema)
 
 module.exports = model;

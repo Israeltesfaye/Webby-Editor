@@ -56,14 +56,16 @@ const params=req.params.id.replace(":","")
 const type=req.params.type.replace(":","")
 if(type=="html"){
 const projects=await Project.findByIdAndUpdate(params, { html:Buffer.from(req.body.data) })
+res.status(200)
 }
 if(type=="css"){
 const projects=await Project.findByIdAndUpdate(params, { css:Buffer.from(req.body.data) })
+res.status(200)
 }
 if(type=="script"){
 const projects=await Project.findByIdAndUpdate(params, { script:Buffer.from(req.body.data) })
-}
 res.status(200)
+}
 })
 
 router.delete("/:id",auth,async(req,res)=>{

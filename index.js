@@ -25,4 +25,4 @@ app.use("/api/user",userRoute)
 
 
 
-app.listen(port,()=>console.log("Server is runing"))
+app.listen(port,()=>console.log("Server is runing on port",port))

@@ -1,15 +1,11 @@
 import { Schema, Model, model } from "mongoose";
 import { z } from "zod";
 
-const UserSchemaZod = z.object({
+export const UserSchemaZod = z.object({
   username: z.string().min(3),
   email: z.string().email(),
   password: z.string().min(8),
-  projects: z.array(z.object({
-    title: z.string().min(5),
-    private: z.boolean().default(true),
-    template: z.enum(["HTML/CSS/JS", "REACT JS"])
-  })).optional()
+  projects: z.array(z.any()).optional()
 })
 
 type UserType = z.infer<typeof UserSchemaZod>;
@@ -28,17 +24,8 @@ const UserSchema: Schema = new Schema<UserType, UserModel>({
     type: String,
     require: true,
   },
+  projects: [{ type: Schema.Types.ObjectId, ref: "Project" }]
 })
 
-console.log(UserSchemaZod.parse({
-  username: "kiya",
-  email: "email@gmail.com",
-  password: "12345678",
-  projects: [{
-    title: "My first Project",
-    private: false,
-    template: "REACT JS"
-  }]
-}))
 
 export const User = model("User", UserSchema)

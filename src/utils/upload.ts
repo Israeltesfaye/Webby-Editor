@@ -1,8 +1,9 @@
 import * as admin from 'firebase-admin';
 import { ServiceAccount } from 'firebase-admin';
-import * as fs from 'fs';
+import * as dotenv from 'dotenv';
+dotenv.config()
 
-const serviceAccount = JSON.parse(fs.readFileSync("./serviceAccountKey.json"))
+const serviceAccount = JSON.parse(process.env.serviceAccount as string)
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as ServiceAccount),

@@ -22,7 +22,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "tsc"
+    "build": "npm install && tsc"
   },
   "keywords": [],
   "author": "israel tesfaye",

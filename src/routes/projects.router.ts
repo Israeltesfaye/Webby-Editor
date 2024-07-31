@@ -1,9 +1,10 @@
 import { Router } from "express"
-import { createProjects, getProject, getProjects } from "../controllers/projects.controller"
+import { createProjects, deleteProject, getProject, getProjects } from "../controllers/projects.controller"
+import { userOnly } from "../middlewares/auth"
 
 const router = Router()
 
-router.get("/projects", getProjects)
-  .get("/project", getProject).post("/project", createProjects)
+router.get("/projects", userOnly, getProjects)
+  .get("/project/:id", userOnly, getProject).post("/project", userOnly, createProjects).delete("/project/:id", userOnly, deleteProject)
 
 export default router

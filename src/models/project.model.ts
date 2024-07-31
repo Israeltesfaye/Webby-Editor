@@ -3,6 +3,7 @@ import { z } from "zod";
 import { FileSchema } from "./file.model";
 
 export const ProjectSchemaZod = z.object({
+  firebaseId: z.string(),
   title: z.string(),
   description: z.string(),
   private: z.boolean(),
@@ -17,6 +18,10 @@ type ProjectType = z.infer<typeof ProjectSchemaZod>;
 type ProjectModel = Model<ProjectType>
 
 const ProjectSchema: Schema = new Schema<ProjectType, ProjectModel>({
+  firebaseId: {
+    type: String,
+    required: true
+  },
   title: {
     type: String,
     required: true

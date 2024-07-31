@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
 import { UserSchemaZod } from "../models/user.model";
 import { fromZodError } from "zod-validation-error"
-import { verify } from "jsonwebtoken";
+import { verify, JwtPayload } from "jsonwebtoken";
+
+export interface CustomRequest extends Request {
+  //user: string | JwtPayload;
+  user: { _id: string; };
+}
 
 export function validateUser(req: Request, res: Response, next: NextFunction) {
   const { username, email, password } = req.body
@@ -24,11 +29,11 @@ export async function userOnly(req: Request, res: Response, next: NextFunction) 
     return
   }
   try {
-    const verifiedToken = await verify(token, process.env.SECRET_KEY as string)
-    if (token == verifiedToken) {
-      next()
-    }
+    const verifiedToken = verify(token, process.env.SECRET_KEY as string) as { _id: string };
+    (req as CustomRequest).user = { _id: verifiedToken._id };
+    next();
   } catch (error) {
     res.json({ msg: "unauthorized" }).status(400)
+    return
   }
 }

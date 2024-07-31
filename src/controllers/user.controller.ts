@@ -1,4 +1,4 @@
-import { Request, Response } from "express-serve-static-core"
+import { Request, Response } from "express"
 import * as bcrypt from "bcryptjs"
 import * as jwt from "jsonwebtoken"
 import { User } from "../models/user.model"

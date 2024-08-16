@@ -1,7 +1,5 @@
-import * as fs from "fs";
 import * as admin from 'firebase-admin';
 import { ServiceAccount } from 'firebase-admin';
-import * as  serviceAccount from './serviceAccountKey.json';
 
 const serviceAccountKey = JSON.parse(process.env.SERVICE_ACCOUNT as string);
 

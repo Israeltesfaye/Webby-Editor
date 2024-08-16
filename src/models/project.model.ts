@@ -29,6 +29,7 @@ const ProjectSchema: Schema = new Schema<ProjectType, ProjectModel>({
   description: {
     type: String
   },
+  //TODO add private projects
   private: {
     type: Boolean,
     required: true

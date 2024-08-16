@@ -6,6 +6,8 @@ import { User, UserSchema } from "../models/user.model";
 import { CustomRequest } from "../middlewares/auth";
 import { Document } from "mongoose"
 import { v4 as uuidv4 } from 'uuid';
+import { updateField } from "../utils/update";
+import { getFileContent } from "../utils/upload";
 
 export async function getProjects(req: Request, res: Response) {
   try {
@@ -40,6 +42,7 @@ export async function createProjects(req: Request, res: Response) {
     }
   } catch (error) {
     res.json({ "msg": "something wrong happend" })
+    console.log(error)
   }
 }
 
@@ -71,6 +74,37 @@ export async function deleteProject(req: Request, res: Response) {
       res.json({ "msg": "deleted succesfully" }).status(200)
     }
   } catch (error) {
+    res.json({ "msg": "something went wrong" }).status(400)
+  }
+}
+
+
+export async function updateProject(req: Request, res: Response) {
+  try {
+    const { value } = req.body
+    console.log(req.params.id, req.params.field, value)
+    await updateField(req.params.id, req.params.field, value)
+    res.json({ "msg": "updated succesfully" }).status(200)
+  } catch (error) {
+    res.json({ "msg": "something went wrong" }).status(400)
+  }
+}
+
+export async function viewProject(req: Request, res: Response) {
+  const { fid, uid } = req.params
+  //TODO change this when adding templates
+  try {
+    let html = await getFileContent(`${uid}/${fid}/index.html`)
+    let css = await getFileContent(`${uid}/${fid}/style.css`)
+    let js = await getFileContent(`${uid}/${fid}/script.js`)
+
+    res.send(`<html>
+${html}
+<style>${css}</style>
+<script>${js}</script>
+</html>`)
+  } catch (error) {
+    console.log(error)
     res.json({ "msg": "something went wrong" }).status(400)
   }
 }

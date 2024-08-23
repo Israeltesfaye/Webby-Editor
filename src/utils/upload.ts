@@ -6,7 +6,7 @@ const serviceAccountKey = JSON.parse(process.env.SERVICE_ACCOUNT as string);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccountKey as ServiceAccount),
-  storageBucket: process.env.BUCKET_NAME
+  storageBucket:'gs://webby-editor.appspot.com' 
 });
 
 

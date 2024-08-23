@@ -34,6 +34,7 @@ export async function userOnly(req: Request, res: Response, next: NextFunction) 
     next();
   } catch (error) {
     res.json({ msg: "unauthorized" }).status(400)
+    console.log(token)
     return
   }
 }

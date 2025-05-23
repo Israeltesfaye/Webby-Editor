@@ -1,7 +1,7 @@
 import { Hono } from "hono";
-import { Register } from "../controllers/user.controller.js";
+import { Login, Logout, Register } from "../controllers/user.controller.js"
 
 const UserRouter = new Hono();
-UserRouter.post("/register", Register);
+UserRouter.post("/register", Register).post("/login",Login).post("/logout",Logout)
 
 export default UserRouter;
